@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<docs>
+	<members name="Recipe">
+		<Recipe>
+			<summary>
+				Модель рецепта.
+			</summary>
+		</Recipe>
+		<Id>
+			<summary>
+				Уникальный номер рецепта.
+			</summary>
+		</Id>
+		<Name>
+			<summary>
+				Название рецепта.
+			</summary>
+		</Name>
+		<Thumbnail>
+			<summary>
+				Ссылка на обложку.
+			</summary>
+		</Thumbnail>
+		<Tags>
+			<summary>
+				Теги.
+			</summary>
+		</Tags>
+		<ApproxTime>
+			<summary>
+				Ориентировочное время приготовления.
+			</summary>
+		</ApproxTime>
+		<Ingredients>
+			<summary>
+				Ингрилиенты.
+			</summary>
+		</Ingredients>
+		<Tools>
+			<summary>
+				Инструменты и оборудование.
+			</summary>
+		</Tools>
+		<Instruction>
+			<summary>
+				Инструкция приготовления.
+			</summary>
+		</Instruction>
+		<Notes>
+			<summary>
+				Заметки.
+			</summary>
+		</Notes>
+		<Links>
+			<summary>
+				Список ссылок.
+			</summary>
+		</Links>
+		<Images>
+			<summary>
+				Список ссылок на изображения.
+			</summary>
+		</Images>
+	</members>
+</docs>
