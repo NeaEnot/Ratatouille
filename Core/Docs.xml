@@ -62,4 +62,57 @@
 			</summary>
 		</Images>
 	</members>
+	<members name="IRecipeLogic">
+		<IRecipeLogic>
+			<summary>
+				Интерфейс взаимодействия с хранилищем моделей рецептов.
+			</summary>
+		</IRecipeLogic>
+		<Create>
+			<summary>
+				Добавление модели в хранилище.
+			</summary>
+			<param name="model">
+				Добавляемая модель.
+			</param>
+		</Create>
+		<Read>
+			<summary>
+				Получение рецепта по Id.
+			</summary>
+			<param name="id">
+				Id получаемой модели.
+			</param>
+			<returns>
+				Рецепт с указанным Id.
+			</returns>
+		</Read>
+		<Find>
+			<summary>
+				Нахождение рецептов по ключевым словам.
+			</summary>
+			<param name="query">
+				Запрос.
+			</param>
+			<returns>
+				Список рецептов, содержащих указанные в запросе слова.
+			</returns>
+		</Find>
+		<Update>
+			<summary>
+				Обновление модели в хранилище.
+			</summary>
+			<param name="model">
+				Обновляемая модель.
+			</param>
+		</Update>
+		<Delete>
+			<summary>
+				Удаление модели из хранилища.
+			</summary>
+			<param name="id">
+				Id удаляемой модели.
+			</param>
+		</Delete>
+	</members>
 </docs>
