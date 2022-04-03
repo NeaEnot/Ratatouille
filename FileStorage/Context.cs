@@ -13,6 +13,10 @@ namespace Ratatouille.FileStorage
 
         private Context()
         {
+            DirectoryInfo dir = new DirectoryInfo("storage");
+            if (!dir.Exists)
+                dir.Create();
+
             Load();
         }
 
