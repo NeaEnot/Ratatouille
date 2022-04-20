@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Ratatouille.GUI.Windows"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Ratatouille" Height="380" Width="620" MinHeight="330" MinWidth="500">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="18"/>
@@ -14,37 +14,35 @@
         </Grid.RowDefinitions>
 
         <Menu Grid.Row="0">
-            <MenuItem Header="Добавить рецепт"/>
+            <MenuItem Header="Добавить рецепт" Click="MenuItem_Click"/>
         </Menu>
 
         <TextBox Name="tbSearch" Margin="10,0,73,0" Grid.Row="1" TextWrapping="NoWrap" VerticalAlignment="Center"/>
-        <Button Name="btnSearch" Content="Поиск" Margin="0,0,12,0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" Width="61"/>
+        <Button Name="btnSearch" Content="Поиск" Margin="0,0,12,0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" Width="61" Click="btnSearch_Click"/>
 
-        <ListBox Grid.Row="2" d:ItemsSource="{d:SampleData ItemCount=5}">
+        <ListBox Name="lbRecipes" Grid.Row="2">
             <ListBox.ItemContainerStyle>
                 <Style TargetType="{x:Type ListBoxItem}">
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="ListBoxItem">
-                                <Grid Background="BlueViolet" Margin="10">
-
-                                    <Image HorizontalAlignment="Left" Width="100" Margin="10,10,0,0" Height="100" VerticalAlignment="Top" Source="{Binding Path=Thumbnail}"/>
+                                <Grid Background="LightGray" Margin="10">
+                                    <Image HorizontalAlignment="Left" Width="100" Margin="10,10,10,10" Height="100" VerticalAlignment="Top" Source="{Binding Path=Thumbnail}"/>
 
                                     <Label Content="{Binding Path=Name}" HorizontalAlignment="Left" Margin="120,10,0,0" VerticalAlignment="Top" FontSize="18"/>
 
                                     <Label Content="Время: " HorizontalAlignment="Left" Margin="120,44,0,0" VerticalAlignment="Top"/>
                                     <Label Content="{Binding Path=ApproxTime}" HorizontalAlignment="Left" Margin="176,44,0,0" VerticalAlignment="Top"/>
 
-                                    <Label Foreground="Blue"  HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top">
+                                    <Label Name="lblView" Foreground="Blue"  HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top" MouseLeftButtonUp="lblView_MouseLeftButtonUp">
                                         <TextBlock Text="Посмотреть" TextDecorations="Underline"/>
                                     </Label>
-                                    <Label Foreground="Blue"  HorizontalAlignment="Right" Margin="0,41,10,0" VerticalAlignment="Top">
+                                    <Label Name="lblUpdate" Foreground="Blue"  HorizontalAlignment="Right" Margin="0,41,10,0" VerticalAlignment="Top" MouseLeftButtonUp="lblUpdate_MouseLeftButtonUp">
                                         <TextBlock Text="Изменить" TextDecorations="Underline"/>
                                     </Label>
-                                    <Label Foreground="Blue"  HorizontalAlignment="Right" Margin="0,72,10,0" VerticalAlignment="Top">
+                                    <Label Name="lblDelete" Foreground="Blue"  HorizontalAlignment="Right" Margin="0,72,10,0" VerticalAlignment="Top" MouseLeftButtonUp="lblDelete_MouseLeftButtonUp">
                                         <TextBlock Text="Удалить" TextDecorations="Underline"/>
                                     </Label>
-
                                 </Grid>
                             </ControlTemplate>
                         </Setter.Value>
@@ -53,8 +51,8 @@
             </ListBox.ItemContainerStyle>
         </ListBox>
 
-        <Button Content="&lt;" HorizontalAlignment="Center" Margin="-20,0,0,24" Grid.Row="2" VerticalAlignment="Bottom"/>
-        <Button Content=">" HorizontalAlignment="Center" Margin="20,0,0,24" Grid.Row="2" VerticalAlignment="Bottom"/>
+        <Button Name="btnPrev" Content="&lt;" HorizontalAlignment="Center" Margin="-20,0,0,24" Grid.Row="2" VerticalAlignment="Bottom" Click="btnPrev_Click"/>
+        <Button Name="btnNext" Content=">" HorizontalAlignment="Center" Margin="20,0,0,24" Grid.Row="2" VerticalAlignment="Bottom" Click="btnNext_Click"/>
 
     </Grid>
 </Window>

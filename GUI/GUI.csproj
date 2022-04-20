@@ -8,4 +8,9 @@
     <RootNamespace>Ratatouille.GUI</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj" />
+    <ProjectReference Include="..\FileStorage\FileStorage.csproj" />
+  </ItemGroup>
+
 </Project>

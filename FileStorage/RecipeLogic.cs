@@ -48,6 +48,26 @@ namespace Ratatouille.FileStorage
 
         public List<Recipe> Find(string query)
         {
+            if (query == "")
+            {
+                return
+                    context.Recipes
+                    .Select(req => new Recipe
+                    {
+                        Id = req.Id,
+                        Name = req.Name,
+                        Thumbnail = req.Thumbnail,
+                        Tags = req.Tags,
+                        Ingredients = req.Ingredients,
+                        Tools = req.Tools,
+                        Instruction = req.Instruction,
+                        Notes = req.Notes,
+                        Links = new List<string>(req.Links),
+                        Images = new List<string>(req.Images)
+                    })
+                    .ToList();
+            }
+
             string[] tokens = query.Split();
             List<Recipe> recipes = new List<Recipe>();
 
@@ -64,8 +84,21 @@ namespace Ratatouille.FileStorage
             foreach (string token in tokens)
                 recipes.AddRange(context.Recipes.Where(req => req.Notes.Contains(token)));
 
-
-            return recipes;
+            return
+                recipes.Select(req => new Recipe
+                {
+                    Id = req.Id,
+                    Name = req.Name,
+                    Thumbnail = req.Thumbnail,
+                    Tags = req.Tags,
+                    Ingredients = req.Ingredients,
+                    Tools = req.Tools,
+                    Instruction = req.Instruction,
+                    Notes = req.Notes,
+                    Links = new List<string>(req.Links),
+                    Images = new List<string>(req.Images)
+                })
+                .ToList();
         }
 
         public Recipe Read(string id)
