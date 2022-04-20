@@ -32,7 +32,11 @@ namespace Ratatouille.GUI.Windows
 
         private void LoadData()
         {
-            List<Recipe> recipes = App.RecipeLogic.Find(searchString);
+            //List<Recipe> recipes = App.RecipeLogic.Find(searchString);
+            List<Recipe> recipes = new List<Recipe>()
+            {
+                new Recipe { Name = "Оладьи", ApproxTime = "60 минут", Thumbnail = "https://img1.russianfood.com/dycontent/images_upl/170/big_169503.jpg" }
+            };
 
             lbRecipes.ItemsSource = null;
             lbRecipes.ItemsSource = recipes.Skip(currentPage * countRecipes).Take(countRecipes);
@@ -66,7 +70,9 @@ namespace Ratatouille.GUI.Windows
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
-
+            searchString = tbSearch.Text;
+            currentPage = 0;
+            LoadData();
         }
 
         private void lblView_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
