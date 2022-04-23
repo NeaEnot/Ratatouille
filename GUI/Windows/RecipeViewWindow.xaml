@@ -1,0 +1,27 @@
+﻿<Window x:Class="Ratatouille.GUI.Windows.RecipeViewWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        WindowState="Maximized"
+        Title="{Binding Path=Name}" Height="450" Width="800">
+    <ScrollViewer>
+        <StackPanel Margin="60,10,60,10">
+            <Image MaxHeight="300" MaxWidth="300" Stretch="Uniform"  Source="{Binding Path=Thumbnail}"/>
+            <TextBlock Margin="10" FontSize="20" Text="Тэги:" FontWeight="DemiBold"/>
+            <TextBlock Margin="10" FontSize="16" TextWrapping="Wrap" Text="{Binding Path=Tags}"/>
+            <TextBlock Margin="10" FontSize="20" Text="Примерное время:" FontWeight="DemiBold"/>
+            <TextBlock Margin="10" FontSize="16" TextWrapping="Wrap" Text="{Binding Path=ApproxTime}"/>
+            <TextBlock Margin="10" FontSize="20" Text="Ингридиенты:" FontWeight="DemiBold"/>
+            <TextBlock Margin="10" FontSize="16" TextWrapping="Wrap" Text="{Binding Path=Ingredients}"/>
+            <TextBlock Margin="10" FontSize="20" Text="Инструменты:" FontWeight="DemiBold"/>
+            <TextBlock Margin="10" FontSize="16" TextWrapping="Wrap" Text="{Binding Path=Tools}"/>
+            <TextBlock Margin="10" FontSize="20" Text="Инструкция:" FontWeight="DemiBold"/>
+            <TextBlock Margin="10" FontSize="16" TextWrapping="Wrap" Text="{Binding Path=Instruction}"/>
+            <TextBlock Margin="10" FontSize="20" Text="Примечания:" FontWeight="DemiBold"/>
+            <TextBlock Margin="10" FontSize="16" TextWrapping="Wrap" Text="{Binding Path=Notes}"/>
+        </StackPanel>
+    </ScrollViewer>
+
+</Window>

@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Ratatouille.GUI.Windows"
         mc:Ignorable="d"
+        WindowState="Maximized"
         Title="Ratatouille" Height="380" Width="620" MinHeight="330" MinWidth="500">
     <Grid>
         <Grid.RowDefinitions>
