@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         WindowState="Maximized"
-        Title="{Binding Path=Name}" Height="450" Width="800">
+        Title="{Binding Path=Name}" Height="485" Width="800">
     <ScrollViewer>
         <StackPanel Margin="60,10,60,10">
-            <Image MaxHeight="300" MaxWidth="300" Stretch="Uniform"  Source="{Binding Path=Thumbnail}"/>
+            <Image MaxHeight="300" MaxWidth="300" Stretch="Uniform" Source="{Binding Path=Thumbnail}"/>
             <TextBlock Margin="10" FontSize="20" Text="Тэги:" FontWeight="DemiBold"/>
             <TextBlock Margin="10" FontSize="16" TextWrapping="Wrap" Text="{Binding Path=Tags}"/>
-            <TextBlock Margin="10" FontSize="20" Text="Примерное время:" FontWeight="DemiBold"/>
+            <TextBlock Margin="10" FontSize="20" Text="Ориентировочное время:" FontWeight="DemiBold"/>
             <TextBlock Margin="10" FontSize="16" TextWrapping="Wrap" Text="{Binding Path=ApproxTime}"/>
             <TextBlock Margin="10" FontSize="20" Text="Ингридиенты:" FontWeight="DemiBold"/>
             <TextBlock Margin="10" FontSize="16" TextWrapping="Wrap" Text="{Binding Path=Ingredients}"/>
@@ -21,6 +21,23 @@
             <TextBlock Margin="10" FontSize="16" TextWrapping="Wrap" Text="{Binding Path=Instruction}"/>
             <TextBlock Margin="10" FontSize="20" Text="Примечания:" FontWeight="DemiBold"/>
             <TextBlock Margin="10" FontSize="16" TextWrapping="Wrap" Text="{Binding Path=Notes}"/>
+
+            <TextBlock Margin="10" FontSize="20" Text="Ссылки:" FontWeight="DemiBold"/>
+            <ListBox Name="lbImages" BorderThickness="0" ItemsSource="{Binding Path=Links}">
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListBoxItem}">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <TextBlock Margin="5">
+                                        <Hyperlink NavigateUri="{Binding}" RequestNavigate="Hyperlink_Click"><TextBlock Text="{Binding}"/></Hyperlink>
+                                    </TextBlock>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+            </ListBox>
         </StackPanel>
     </ScrollViewer>
 

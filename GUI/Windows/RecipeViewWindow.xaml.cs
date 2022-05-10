@@ -1,7 +1,6 @@
 ﻿using Ratatouille.Core;
-using Ratatouille.GUI.Enums;
-using Ratatouille.GUI.Pages;
 using System.Windows;
+using System.Windows.Navigation;
 
 namespace Ratatouille.GUI.Windows
 {
@@ -11,6 +10,11 @@ namespace Ratatouille.GUI.Windows
         {
             InitializeComponent();
             DataContext = recipe;
+        }
+
+        private void Hyperlink_Click(object sender, RequestNavigateEventArgs e)
+        {
+
         }
     }
 }

@@ -35,6 +35,8 @@ namespace Ratatouille.GUI.Windows
                     Ingredients = "Колбаса сырокопченая - 200 г\nСыр твердый - 200 г\nКартофель отварной - 3 шт.\nОгурцы маринованные - 3-4 шт.\nГорошек зеленый консервированный - 1 банка\nЛук фиолетовый небольшой - 1 шт.\nСоль - по вкусу\nПерец черный молотый - по вкусу\nМайонез - 2 ст.л. (по вкусу)",
                     Tools = "Нож, разделочная доска, тарелка",
                     Instruction = "Подготавливаем продукты для салата с колбасой, сыром, огурцами, горошком и картофелем.\n\nКартофель заранее отвариваем, остужаем, очищаем.\n\nКолбасу нарезаем соломкой.\n\nОгурчики нарезаем соломкой.\n\nОтварной картофель тоже нарезаем соломкой.\n\nЛук нарезаем полукольцами или соломкой.\n\nТвердый сыр трем на терке.\n\nСмешиваем все нарезанные ингредиенты. Добавляем в салат с сыром, колбасой, картофелем и огурцами консервированный горошек, молотый черный перец и майонез. Все перемешиваем.\n\nСалат \"Охотничий\" с копченой колбасой готов. Приятного аппетита!",
+                    Images = new List<string> { "https://img1.russianfood.com/dycontent/images_upl/74/big_73580.jpg", "https://img1.russianfood.com/dycontent/images_upl/74/big_73581.jpg" },
+                    Links = new List<string> { "https://img1.russianfood.com/dycontent/images_upl/74/big_73580.jpg", "https://img1.russianfood.com/dycontent/images_upl/74/big_73581.jpg" }
                 }
             };
 
@@ -83,7 +85,8 @@ namespace Ratatouille.GUI.Windows
 
         private void lblUpdate_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-
+            RecipeEditWindow window = new RecipeEditWindow((sender as Label).DataContext as Recipe);
+            window.Show();
         }
 
         private void lblDelete_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
