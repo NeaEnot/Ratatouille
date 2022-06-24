@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         WindowState="Maximized"
-        Title="{Binding Path=Name}" Height="826" Width="800">
+        Title="{Binding Path=Name}" Height="965" Width="800">
 
     <ScrollViewer>
         <StackPanel Margin="60,10,60,10">
@@ -39,34 +39,13 @@
             <TextBox Margin="10" Padding="4" FontSize="16" AcceptsReturn="True" TextWrapping="Wrap" Text="{Binding Path=Notes}"/>
 
             <TextBlock Margin="10" FontSize="20" Text="Изображения:" FontWeight="DemiBold"/>
-            <ListBox Name="lbImages" BorderThickness="0" ItemsSource="{Binding Path=Images}">
-                <ListBox.ItemContainerStyle>
-                    <Style TargetType="{x:Type ListBoxItem}">
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="ListBoxItem">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition/>
-                                            <ColumnDefinition Width="Auto"/>
-                                        </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="45"/>
-                                            <RowDefinition Height="Auto"/>
-                                        </Grid.RowDefinitions>
-
-                                        <TextBox Grid.Column="0" Grid.Row="0" Name="tbImg" Margin="10" FontSize="16" AcceptsReturn="True" TextWrapping="Wrap" Text="{Binding RelativeSource={RelativeSource Mode=Self}, Path=DataContext, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                        <Button Grid.Column="1" Grid.Row="0" Content="Удалить" FontSize="16" Margin="10" Padding="10 0" Click="btnDelete_Click"/>
-                                        <Image Name="imgThumb" HorizontalAlignment="Left" Grid.Column="0" Grid.Row="1" MaxHeight="150" MaxWidth="150" Stretch="Uniform" Source="{Binding RelativeSource={RelativeSource Mode=Self}, Path=DataContext}"/>
-                                    </Grid>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </ListBox.ItemContainerStyle>
-            </ListBox>
-
+            <StackPanel Name="spImages"/>
             <Button Name="btnAddImg" Grid.Column="1" Grid.Row="0" Content="Добавить изображение" FontSize="16" Margin="10" Click="btnAddImg_Click"/>
+            
+            <TextBlock Margin="10" FontSize="20" Text="Ссылки:" FontWeight="DemiBold"/>
+            <TextBox Name="tbLinks" Margin="10" Padding="4" FontSize="16" AcceptsReturn="True" TextWrapping="Wrap"/>
+            
+            <Button Name="btnSave" Grid.Column="1" Grid.Row="0" Content="Сохранить" FontSize="16" Margin="10,20" Click="btnSave_Click"/>
         </StackPanel>
     </ScrollViewer>
 </Window>

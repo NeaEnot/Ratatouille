@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Navigation;
 
 namespace Ratatouille.GUI.Windows
 {
@@ -67,7 +69,8 @@ namespace Ratatouille.GUI.Windows
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-
+            RecipeEditWindow reWindow = new RecipeEditWindow(new Recipe());
+            reWindow.Show();
         }
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
@@ -77,21 +80,22 @@ namespace Ratatouille.GUI.Windows
             LoadData();
         }
 
-        private void lblView_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void Hyperlink_Click(object sender, RequestNavigateEventArgs e)
         {
-            RecipeViewWindow window = new RecipeViewWindow((sender as Label).DataContext as Recipe);
-            window.Show();
-        }
-
-        private void lblUpdate_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            RecipeEditWindow window = new RecipeEditWindow((sender as Label).DataContext as Recipe);
-            window.Show();
-        }
-
-        private void lblDelete_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-
+            switch ((sender as Hyperlink).NavigateUri.ToString())
+            {
+                case "/View":
+                    RecipeViewWindow rvWindow = new RecipeViewWindow((sender as Hyperlink).DataContext as Recipe);
+                    rvWindow.Show();
+                    break;
+                case "/Update":
+                    RecipeEditWindow reWindow = new RecipeEditWindow((sender as Hyperlink).DataContext as Recipe);
+                    reWindow.Show();
+                    break;
+                case "/Delete":
+                    App.RecipeLogic.Delete(((sender as Hyperlink).DataContext as Recipe).Id);
+                    break;
+            }
         }
     }
 }
