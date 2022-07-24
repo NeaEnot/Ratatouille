@@ -1,5 +1,6 @@
 ﻿using Ratatouille.Core;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Documents;
@@ -53,6 +54,7 @@ namespace Ratatouille.GUI.Windows
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             RecipeEditWindow reWindow = new RecipeEditWindow(new Recipe());
+            reWindow.Closing += (object sender, CancelEventArgs e) => LoadData();
             reWindow.Show();
         }
 
@@ -77,6 +79,7 @@ namespace Ratatouille.GUI.Windows
                     break;
                 case "/Delete":
                     App.RecipeLogic.Delete(((sender as Hyperlink).DataContext as Recipe).Id);
+                    LoadData();
                     break;
             }
         }

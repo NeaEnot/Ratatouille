@@ -9,6 +9,9 @@
 
     <ScrollViewer>
         <StackPanel Margin="60,10,60,10">
+            <TextBlock Margin="10" FontSize="20" Text="Название:" FontWeight="DemiBold"/>
+            <TextBox Margin="10" Padding="4" FontSize="16" AcceptsReturn="True" TextWrapping="Wrap" Text="{Binding Path=Name}"/>
+            
             <TextBlock Margin="10" FontSize="20" Text="Изображение:" FontWeight="DemiBold"/>
             <Grid>
                 <Grid.ColumnDefinitions>

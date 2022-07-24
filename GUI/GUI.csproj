@@ -6,6 +6,8 @@
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <RootNamespace>Ratatouille.GUI</RootNamespace>
+    <AssemblyName>Ratatouille</AssemblyName>
+    <ApplicationIcon>ratatouille.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>

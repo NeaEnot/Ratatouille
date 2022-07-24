@@ -8,10 +8,10 @@ namespace Ratatouille.FileStorage
     {
         internal static string SaveImage(string link)
         {
-            if (link.StartsWith(@"storage\"))
+            if (link.StartsWith(@"storage\") || string.IsNullOrWhiteSpace(link))
                 return link;
 
-            string path = @"storage\" + Guid.NewGuid().ToString();
+            string path = @$"{AppContext.BaseDirectory}\storage\{Guid.NewGuid()}.jpg";
 
             if (link.StartsWith("http"))
                 SaveFromWeb(link, path);
