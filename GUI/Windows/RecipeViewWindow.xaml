@@ -14,13 +14,13 @@
             <TextBlock Margin="10" FontSize="20" Text="Ориентировочное время:" FontWeight="DemiBold"/>
             <TextBlock Margin="10" FontSize="16" TextWrapping="Wrap" Text="{Binding Path=ApproxTime}"/>
             <TextBlock Margin="10" FontSize="20" Text="Ингридиенты:" FontWeight="DemiBold"/>
-            <TextBlock Margin="10" FontSize="16" TextWrapping="Wrap" Text="{Binding Path=Ingredients}"/>
+            <Frame Name="frameIngridients" Margin="10"/>
             <TextBlock Margin="10" FontSize="20" Text="Инструменты:" FontWeight="DemiBold"/>
-            <TextBlock Margin="10" FontSize="16" TextWrapping="Wrap" Text="{Binding Path=Tools}"/>
+            <Frame Name="frameTools" Margin="10"/>
             <TextBlock Margin="10" FontSize="20" Text="Инструкция:" FontWeight="DemiBold"/>
-            <TextBlock Margin="10" FontSize="16" TextWrapping="Wrap" Text="{Binding Path=Instruction}"/>
+            <Frame Name="frameInstruction" Margin="10"/>
             <TextBlock Margin="10" FontSize="20" Text="Примечания:" FontWeight="DemiBold"/>
-            <TextBlock Margin="10" FontSize="16" TextWrapping="Wrap" Text="{Binding Path=Notes}"/>
+            <Frame Name="frameNotes" Margin="10"/>
 
             <TextBlock Margin="10" FontSize="20" Text="Ссылки:" FontWeight="DemiBold"/>
             <ListBox Name="lbImages" BorderThickness="0" ItemsSource="{Binding Path=Links}">

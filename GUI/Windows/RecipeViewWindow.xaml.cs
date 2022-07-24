@@ -1,4 +1,5 @@
 ﻿using Ratatouille.Core;
+using Ratatouille.GUI.Pages;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Documents;
@@ -12,6 +13,11 @@ namespace Ratatouille.GUI.Windows
         {
             InitializeComponent();
             DataContext = recipe;
+
+            frameIngridients.Content = new ImagedFieldPage(recipe.Ingredients, recipe.Images);
+            frameTools.Content = new ImagedFieldPage(recipe.Tools, recipe.Images);
+            frameInstruction.Content = new ImagedFieldPage(recipe.Instruction, recipe.Images);
+            frameNotes.Content = new ImagedFieldPage(recipe.Notes, recipe.Images);
         }
 
         private void Hyperlink_Click(object sender, RequestNavigateEventArgs e)
