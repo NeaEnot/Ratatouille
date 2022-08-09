@@ -71,20 +71,22 @@ namespace Ratatouille.FileStorage
             }
 
             string[] tokens = query.Split();
-            List<Recipe> recipes = new List<Recipe>();
+            HashSet<Recipe> recipes = new HashSet<Recipe>();
 
-            foreach (string token in tokens)
-                recipes.AddRange(context.Recipes.Where(req => req.Name.ToLower().Contains(token.ToLower())));
-            foreach (string token in tokens)
-                recipes.AddRange(context.Recipes.Where(req => req.Tags.ToLower().Contains(token.ToLower())));
-            foreach (string token in tokens)
-                recipes.AddRange(context.Recipes.Where(req => req.Ingredients.ToLower().Contains(token.ToLower())));
-            foreach (string token in tokens)
-                recipes.AddRange(context.Recipes.Where(req => req.Tools.ToLower().Contains(token.ToLower())));
-            foreach (string token in tokens)
-                recipes.AddRange(context.Recipes.Where(req => req.Instruction.ToLower().Contains(token.ToLower())));
-            foreach (string token in tokens)
-                recipes.AddRange(context.Recipes.Where(req => req.Notes.ToLower().Contains(token.ToLower())));
+            Action<Func<Recipe, string>> addRecipes =
+                (field) =>
+                {
+                    foreach (string token in tokens)
+                        foreach (Recipe recipe in context.Recipes.Where(req => field(req).ToLower().Contains(token.ToLower())))
+                            recipes.Add(recipe);
+                };
+
+            addRecipes(recipe => recipe.Name);
+            addRecipes(recipe => recipe.Tags);
+            addRecipes(recipe => recipe.Ingredients);
+            addRecipes(recipe => recipe.Tools);
+            addRecipes(recipe => recipe.Instruction);
+            addRecipes(recipe => recipe.Notes);
 
             return
                 recipes.Select(req => new Recipe
