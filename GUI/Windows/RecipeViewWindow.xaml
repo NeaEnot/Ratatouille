@@ -9,21 +9,21 @@
     <ScrollViewer>
         <StackPanel Margin="60,10,60,10">
             <Image MaxHeight="300" MaxWidth="300" Stretch="Uniform" Source="{Binding Path=Thumbnail}"/>
-            <TextBlock Margin="10" FontSize="20" Text="Тэги:" FontWeight="DemiBold"/>
-            <TextBlock Margin="10" FontSize="16" TextWrapping="Wrap" Text="{Binding Path=Tags}"/>
-            <TextBlock Margin="10" FontSize="20" Text="Ориентировочное время:" FontWeight="DemiBold"/>
-            <TextBlock Margin="10" FontSize="16" TextWrapping="Wrap" Text="{Binding Path=ApproxTime}"/>
-            <TextBlock Margin="10" FontSize="20" Text="Ингридиенты:" FontWeight="DemiBold"/>
-            <TextBlock Margin="10" FontSize="16" TextWrapping="Wrap" Text="{Binding Path=Ingredients}"/>
-            <TextBlock Margin="10" FontSize="20" Text="Инструменты:" FontWeight="DemiBold"/>
-            <TextBlock Margin="10" FontSize="16" TextWrapping="Wrap" Text="{Binding Path=Tools}"/>
-            <TextBlock Margin="10" FontSize="20" Text="Инструкция:" FontWeight="DemiBold"/>
-            <TextBlock Margin="10" FontSize="16" TextWrapping="Wrap" Text="{Binding Path=Instruction}"/>
-            <TextBlock Margin="10" FontSize="20" Text="Примечания:" FontWeight="DemiBold"/>
-            <TextBlock Margin="10" FontSize="16" TextWrapping="Wrap" Text="{Binding Path=Notes}"/>
+            <TextBlock Name="tblTagsTitle" Margin="10" FontSize="20" Text="Тэги:" FontWeight="DemiBold"/>
+            <TextBlock Name="tblTags" Margin="10" FontSize="16" TextWrapping="Wrap" Text="{Binding Path=Tags}"/>
+            <TextBlock Name="tblApproxTimeTitle" Margin="10" FontSize="20" Text="Ориентировочное время:" FontWeight="DemiBold"/>
+            <TextBlock Name="tblApproxTime" Margin="10" FontSize="16" TextWrapping="Wrap" Text="{Binding Path=ApproxTime}"/>
+            <TextBlock Name="tblIngridientsTitile" Margin="10" FontSize="20" Text="Ингридиенты:" FontWeight="DemiBold"/>
+            <Frame Name="frameIngridients" Margin="10"/>
+            <TextBlock Name="tblToolsTitile" Margin="10" FontSize="20" Text="Инструменты:" FontWeight="DemiBold"/>
+            <Frame Name="frameTools" Margin="10"/>
+            <TextBlock Name="tblInstructionTitile" Margin="10" FontSize="20" Text="Инструкция:" FontWeight="DemiBold"/>
+            <Frame Name="frameInstruction" Margin="10"/>
+            <TextBlock Name="tblNotesTitile" Margin="10" FontSize="20" Text="Примечания:" FontWeight="DemiBold"/>
+            <Frame Name="frameNotes" Margin="10"/>
 
-            <TextBlock Margin="10" FontSize="20" Text="Ссылки:" FontWeight="DemiBold"/>
-            <ListBox Name="lbImages" BorderThickness="0" ItemsSource="{Binding Path=Links}">
+            <TextBlock Name="tblLinksTitle" Margin="10" FontSize="20" Text="Ссылки:" FontWeight="DemiBold"/>
+            <ListBox Name="lbLinks" BorderThickness="0" ItemsSource="{Binding Path=Links}">
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="{x:Type ListBoxItem}">
                         <Setter Property="Template">

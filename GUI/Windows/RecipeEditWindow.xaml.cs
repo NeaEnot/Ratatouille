@@ -81,7 +81,7 @@ namespace Ratatouille.GUI.Windows
             model.Images = imgs;
             model.Links = links;
 
-            if (model.Id != null)
+            if (model.Id == null)
                 App.RecipeLogic.Create(model.Recipe);
             else
                 App.RecipeLogic.Update(model.Recipe);

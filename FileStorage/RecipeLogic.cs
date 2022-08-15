@@ -20,13 +20,14 @@ namespace Ratatouille.FileStorage
             Recipe recipe = new Recipe
             {
                 Id = model.Id,
-                Name = model.Name,
-                Thumbnail = model.Thumbnail,
-                Tags = model.Tags,
-                Ingredients = model.Ingredients,
-                Tools = model.Tools,
-                Instruction = model.Instruction,
-                Notes = model.Notes,
+                Name = model.Name ?? "",
+                Thumbnail = model.Thumbnail ?? "",
+                Tags = model.Tags ?? "",
+                ApproxTime = model.ApproxTime ?? "",
+                Ingredients = model.Ingredients ?? "",
+                Tools = model.Tools ?? "",
+                Instruction = model.Instruction ?? "",
+                Notes = model.Notes ?? "",
                 Links = new List<string>(model.Links),
                 Images = new List<string>(model.Images)
             };
@@ -58,6 +59,7 @@ namespace Ratatouille.FileStorage
                         Name = req.Name,
                         Thumbnail = req.Thumbnail,
                         Tags = req.Tags,
+                        ApproxTime = req.ApproxTime,
                         Ingredients = req.Ingredients,
                         Tools = req.Tools,
                         Instruction = req.Instruction,
@@ -69,20 +71,22 @@ namespace Ratatouille.FileStorage
             }
 
             string[] tokens = query.Split();
-            List<Recipe> recipes = new List<Recipe>();
+            HashSet<Recipe> recipes = new HashSet<Recipe>();
 
-            foreach (string token in tokens)
-                recipes.AddRange(context.Recipes.Where(req => req.Name.Contains(token)));
-            foreach (string token in tokens)
-                recipes.AddRange(context.Recipes.Where(req => req.Tags.Contains(token)));
-            foreach (string token in tokens)
-                recipes.AddRange(context.Recipes.Where(req => req.Ingredients.Contains(token)));
-            foreach (string token in tokens)
-                recipes.AddRange(context.Recipes.Where(req => req.Tools.Contains(token)));
-            foreach (string token in tokens)
-                recipes.AddRange(context.Recipes.Where(req => req.Instruction.Contains(token)));
-            foreach (string token in tokens)
-                recipes.AddRange(context.Recipes.Where(req => req.Notes.Contains(token)));
+            Action<Func<Recipe, string>> addRecipes =
+                (field) =>
+                {
+                    foreach (string token in tokens)
+                        foreach (Recipe recipe in context.Recipes.Where(req => field(req).ToLower().Contains(token.ToLower())))
+                            recipes.Add(recipe);
+                };
+
+            addRecipes(recipe => recipe.Name);
+            addRecipes(recipe => recipe.Tags);
+            addRecipes(recipe => recipe.Ingredients);
+            addRecipes(recipe => recipe.Tools);
+            addRecipes(recipe => recipe.Instruction);
+            addRecipes(recipe => recipe.Notes);
 
             return
                 recipes.Select(req => new Recipe
@@ -91,6 +95,7 @@ namespace Ratatouille.FileStorage
                     Name = req.Name,
                     Thumbnail = req.Thumbnail,
                     Tags = req.Tags,
+                    ApproxTime = req.ApproxTime,
                     Ingredients = req.Ingredients,
                     Tools = req.Tools,
                     Instruction = req.Instruction,
@@ -114,6 +119,7 @@ namespace Ratatouille.FileStorage
                 Name = model.Name,
                 Thumbnail = model.Thumbnail,
                 Tags = model.Tags,
+                ApproxTime = model.ApproxTime,
                 Ingredients = model.Ingredients,
                 Tools = model.Tools,
                 Instruction = model.Instruction,
@@ -129,18 +135,23 @@ namespace Ratatouille.FileStorage
         {
             Recipe recipe = context.Recipes.FirstOrDefault(req => req.Id == model.Id);
 
-            if (model == null)
+            if (recipe == null)
                 throw new Exception("Рецепта с указанным Id не найдено");
 
-            recipe.Name = model.Name;
-            recipe.Thumbnail = model.Thumbnail;
-            recipe.Tags = model.Tags;
-            recipe.Ingredients = model.Ingredients;
-            recipe.Tools = model.Tools;
-            recipe.Instruction = model.Instruction;
-            recipe.Notes = model.Notes;
+            recipe.Name = model.Name ?? "";
+            recipe.Thumbnail = model.Thumbnail ?? "";
+            recipe.Tags = model.Tags ?? "";
+            recipe.ApproxTime = model.ApproxTime ?? "";
+            recipe.Ingredients = model.Ingredients ?? "";
+            recipe.Tools = model.Tools ?? "";
+            recipe.Instruction = model.Instruction ?? "";
+            recipe.Notes = model.Notes ?? "";
             recipe.Links = new List<string>(model.Links);
             recipe.Images = new List<string>(model.Images);
+
+            recipe.Thumbnail = ImageSaver.SaveImage(recipe.Thumbnail);
+            for (int i = 0; i < model.Images.Count; i++)
+                recipe.Images[i] = ImageSaver.SaveImage(recipe.Images[i]);
 
             context.Save();
         }
