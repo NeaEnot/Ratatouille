@@ -43,5 +43,18 @@ namespace Ratatouille.Core
             Links = new List<string>();
             Images = new List<string>();
         }
+
+        public override int GetHashCode()
+        {
+            string imgs = "";
+            string links = "";
+
+            foreach (string img in Images)
+                imgs += img;
+            foreach (string link in Links)
+                links += link;
+
+            return (Id + Name + Thumbnail + Tags + ApproxTime + Ingredients + Tools + Instruction + Notes + links + imgs).GetHashCode();
+        }
     }
 }
