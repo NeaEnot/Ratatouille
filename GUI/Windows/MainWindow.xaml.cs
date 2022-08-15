@@ -1,4 +1,5 @@
 ﻿using Ratatouille.Core;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -13,19 +14,27 @@ namespace Ratatouille.GUI.Windows
         private int currentPage;
         private int countRecipes = 20;
 
-        private string searchString = "";
+        private List<Recipe> recipes;
+        private Random rnd;
 
         public MainWindow()
         {
             InitializeComponent();
+
+            rnd = new Random();
+
+            List<Recipe> loadedRecipes = App.RecipeLogic.Find("");
+            recipes = new List<Recipe>();
+            while (loadedRecipes.Count > 0)
+                recipes.Add(loadedRecipes[rnd.Next(0, loadedRecipes.Count)]);
+
             currentPage = 0;
+
             LoadData();
         }
 
         private void LoadData()
         {
-            List<Recipe> recipes = App.RecipeLogic.Find(searchString);
-
             lbRecipes.ItemsSource = null;
             lbRecipes.ItemsSource = recipes.Skip(currentPage * countRecipes).Take(countRecipes);
 
@@ -60,8 +69,22 @@ namespace Ratatouille.GUI.Windows
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
-            searchString = tbSearch.Text;
+            string searchString = tbSearch.Text;
+            List<Recipe> loadedRecipes = App.RecipeLogic.Find(searchString);
+
+            if (searchString == "")
+            {
+                recipes = new List<Recipe>();
+                while (loadedRecipes.Count > 0)
+                    recipes.Add(loadedRecipes[rnd.Next(0, loadedRecipes.Count)]);
+            }
+            else
+            {
+                recipes = loadedRecipes;
+            }
+
             currentPage = 0;
+
             LoadData();
         }
 
