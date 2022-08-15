@@ -1,13 +1,16 @@
 ﻿using Newtonsoft.Json;
 using Ratatouille.Core;
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace Ratatouille.FileStorage
 {
     internal class Context
     {
         private static Context instance;
+        private Dictionary<string, int> hashes;
 
         internal List<Recipe> Recipes { get; set; }
 
@@ -18,6 +21,9 @@ namespace Ratatouille.FileStorage
                 dir.Create();
 
             Load();
+
+            foreach (Recipe recipe in Recipes)
+                hashes.Add(recipe.Id, recipe.GetHashCode());
         }
 
         internal static Context Instanse
@@ -33,10 +39,16 @@ namespace Ratatouille.FileStorage
 
         internal void Save()
         {
-            using (StreamWriter writer = new StreamWriter(@"storage\storage.json"))
+            foreach (Recipe recipe in Recipes)
             {
-                string json = JsonConvert.SerializeObject(Recipes);
-                writer.Write(json);
+                if (hashes.ContainsKey(recipe.Id) && hashes[recipe.Id] == recipe.GetHashCode())
+                    continue;
+
+                using (StreamWriter writer = new StreamWriter(@$"storage\{recipe.Id}.recipe"))
+                {
+                    string json = JsonConvert.SerializeObject(recipe);
+                    writer.Write(json);
+                }
             }
         }
 
@@ -46,18 +58,24 @@ namespace Ratatouille.FileStorage
             if (!dir.Exists)
                 dir.Create();
 
-            try
+            List<Recipe> recipes = new List<Recipe>();
+
+            foreach (FileInfo file in dir.EnumerateFiles().Where(req => req.Name.EndsWith(".recipe")))
             {
-                using (StreamReader reader = new StreamReader(@"storage\storage.json"))
+                try
                 {
-                    string json = reader.ReadToEnd();
-                    Recipes = JsonConvert.DeserializeObject<List<Recipe>>(json);
+                    using (StreamReader reader = new StreamReader(file.FullName))
+                    {
+                        string json = reader.ReadToEnd();
+                        Recipe recipe = JsonConvert.DeserializeObject<Recipe>(json);
+                        recipes.Add(recipe);
+                    }
                 }
+                catch (Exception ex)
+                { }
             }
-            catch
-            {
-                Recipes = new List<Recipe>();
-            }
+
+            Recipes = recipes;
         }
     }
 }
