@@ -17,7 +17,7 @@ namespace Ratatouille.GUI.Windows
         private void Hyperlink_Click(object sender, RequestNavigateEventArgs e)
         {
             string destinationurl = (sender as Hyperlink).NavigateUri.ToString();
-            ProcessStartInfo sInfo = new ProcessStartInfo(destinationurl) { UseShellExecute = true, };
+            ProcessStartInfo sInfo = new ProcessStartInfo(destinationurl) { UseShellExecute = true };
             Process.Start(sInfo);
         }
     }
