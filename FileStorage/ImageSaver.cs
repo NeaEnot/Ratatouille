@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 
@@ -8,19 +9,22 @@ namespace Ratatouille.FileStorage
     {
         internal static string SaveImage(string link)
         {
-            if (link.StartsWith(@"storage\") || string.IsNullOrWhiteSpace(link))
+            if (string.IsNullOrWhiteSpace(link) || link.StartsWith(@"data:image"))
                 return link;
 
             string path = @$"{AppContext.BaseDirectory}\storage\{Guid.NewGuid()}.jpg";
 
             if (link.StartsWith("http"))
                 SaveFromWeb(link, path);
-            else if (link.StartsWith("data:image"))
-                SaveFromBase64(link, path);
             else
                 SaveFromLocal(link, path);
 
-            return path;
+            string uri = ToUri(path);
+
+            FileInfo file = new FileInfo(path);
+            file.Delete();
+
+            return uri;
         }
 
         private static void SaveFromWeb(string link, string path)
@@ -29,22 +33,24 @@ namespace Ratatouille.FileStorage
                 client.DownloadFile(link, path);
         }
 
-        private static void SaveFromBase64(string link, string path)
-        {
-            string base64 = link.Split(',')[1];
-
-            byte[] bytes = Convert.FromBase64String(base64);
-
-            using (var file = new FileStream(path, FileMode.Create))
-            {
-                file.Write(bytes, 0, bytes.Length);
-                file.Flush();
-            }
-        }
-
         private static void SaveFromLocal(string link, string path)
         {
             File.Copy(link, path);
+        }
+
+        private static string ToUri(string path)
+        {
+            using (FileStream stream = new FileStream(path, FileMode.Open))
+            {
+                List<byte> bytes = new List<byte>();
+                int b;
+                while ((b = stream.ReadByte()) != -1)
+                    bytes.Add((byte)b);
+                byte[] arr = bytes.ToArray();
+                string imgeBase64Data = Convert.ToBase64String(arr);
+                string imgDataURL = $"data:image/jpg;base64,{imgeBase64Data}";
+                return imgDataURL;
+            }
         }
     }
 }
