@@ -1,6 +1,5 @@
 ﻿using Microsoft.Win32;
 using Ratatouille.Core;
-using Ratatouille.GUI.Pages;
 using Ratatouille.GUI.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -14,9 +13,6 @@ namespace Ratatouille.GUI.Windows
     {
         private RecipeViewModel model;
 
-        private Dictionary<string, ImageItemPage> imgPages = new Dictionary<string, ImageItemPage>();
-        private Dictionary<string, Frame> imgFrames = new Dictionary<string, Frame>();
-
         private static Random rnd = new Random();
 
         public RecipeEditWindow(Recipe recipe)
@@ -28,10 +24,10 @@ namespace Ratatouille.GUI.Windows
             DataContext = model;
 
             foreach (string img in recipe.Images)
-                spImages.Children.Add(CreateImageFrame(img));
+                tbImages.Text += img + '\n';
 
             foreach (string link in recipe.Links)
-                tbLinks.Text += link + "\n";
+                tbLinks.Text += link + '\n';
         }
 
         private void btnSelectThumb_Click(object sender, RoutedEventArgs e)
@@ -43,28 +39,9 @@ namespace Ratatouille.GUI.Windows
                 model.Thumbnail = dlg.FileName;
         }
 
-        private void btnAddImg_Click(object sender, RoutedEventArgs e)
+        private void tbImages_TextChanged(object sender, TextChangedEventArgs e)
         {
-            spImages.Children.Add(CreateImageFrame(""));
-        }
-
-        private void DeleteImg(string name)
-        {
-            spImages.Children.Remove(imgFrames[name]);
-            imgPages.Remove(name);
-            imgFrames.Remove(name);
-        }
-
-        private Frame CreateImageFrame(string link)
-        {
-            string name = "img_" + rnd.Next().ToString();
-            ImageItemPage page = new ImageItemPage { Name = name, Value = link, Delete = DeleteImg };
-            Frame frame = new Frame { Name = name, Content = page };
-
-            imgPages.Add(name, page);
-            imgFrames.Add(name, frame);
-
-            return frame;
+            string[] imgs = tbImages.Text.Split('\n');
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
@@ -72,8 +49,8 @@ namespace Ratatouille.GUI.Windows
             List<string> imgs = new List<string>();
             List<string> links = new List<string>();
 
-            foreach (string key in imgPages.Keys)
-                imgs.Add(imgPages[key].Value);
+            foreach (string img in tbImages.Text.Split('\n').Where(req => req != ""))
+                imgs.Add(img);
 
             foreach (string link in tbLinks.Text.Split('\n').Where(req => req != ""))
                 links.Add(link);

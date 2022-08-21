@@ -42,8 +42,7 @@
             <TextBox Margin="10" Padding="4" FontSize="16" AcceptsReturn="True" TextWrapping="Wrap" Text="{Binding Path=Notes}"/>
 
             <TextBlock Margin="10" FontSize="20" Text="Изображения:" FontWeight="DemiBold"/>
-            <StackPanel Name="spImages"/>
-            <Button Name="btnAddImg" Grid.Column="1" Grid.Row="0" Content="Добавить изображение" FontSize="16" Margin="10" Click="btnAddImg_Click"/>
+            <TextBox Name="tbImages" Margin="10" Padding="4" FontSize="16" AcceptsReturn="True" TextWrapping="Wrap" TextChanged="tbImages_TextChanged"/>
             
             <TextBlock Margin="10" FontSize="20" Text="Ссылки:" FontWeight="DemiBold"/>
             <TextBox Name="tbLinks" Margin="10" Padding="4" FontSize="16" AcceptsReturn="True" TextWrapping="Wrap"/>
