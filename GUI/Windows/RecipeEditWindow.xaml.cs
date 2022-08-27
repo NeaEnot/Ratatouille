@@ -4,15 +4,19 @@ using Ratatouille.GUI.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Threading;
 
 namespace Ratatouille.GUI.Windows
 {
     public partial class RecipeEditWindow : Window
     {
         private RecipeViewModel model;
+        
         private Dictionary<string, string> imgLinks;
+        private Stack<Label> labels;
 
         private static Random rnd = new Random();
 
@@ -25,6 +29,7 @@ namespace Ratatouille.GUI.Windows
             DataContext = model;
 
             imgLinks = new Dictionary<string, string>();
+            labels = new Stack<Label>();
 
             foreach (string img in recipe.Images)
                 tbImages.Text += img + '\n';
@@ -49,6 +54,35 @@ namespace Ratatouille.GUI.Windows
         private void tbImages_TextChanged(object sender, TextChangedEventArgs e)
         {
             string[] imgs = tbImages.Text.Split('\n');
+
+            Dispatcher.BeginInvoke(DispatcherPriority.Input, new ThreadStart(() =>
+            {
+                int n = 0;
+                for (int i = tbImages.Text.Split('\n').Length; i > 0; i /= 10)
+                    n++;
+
+                numbersColumn.Width = new GridLength(n * 15);
+
+                while (labels.Count < tbImages.Text.Split('\n').Length)
+                {
+                    Label label = new Label
+                    {
+                        Content = labels.Count + 1,
+                        HorizontalAlignment = HorizontalAlignment.Right,
+                        Padding = new Thickness(0, 0.0025, 4, 0),
+                        FontSize = 16
+                    };
+
+                    labels.Push(label);
+                    spNumbers.Children.Add(label);
+                }
+
+                while (labels.Count > tbImages.Text.Split('\n').Length)
+                {
+                    Label label = labels.Pop();
+                    spNumbers.Children.Remove(label);
+                }
+            }));
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)

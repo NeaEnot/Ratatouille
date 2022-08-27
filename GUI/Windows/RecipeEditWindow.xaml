@@ -42,7 +42,15 @@
             <TextBox Margin="10" Padding="4" FontSize="16" AcceptsReturn="True" TextWrapping="Wrap" Text="{Binding Path=Notes}"/>
 
             <TextBlock Margin="10" FontSize="20" Text="Изображения:" FontWeight="DemiBold"/>
-            <TextBox Name="tbImages" Margin="10" Padding="4" FontSize="16" AcceptsReturn="True" TextWrapping="Wrap" TextChanged="tbImages_TextChanged"/>
+            <Grid Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Name="numbersColumn" Width="15px"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <VirtualizingStackPanel Name="spNumbers" Orientation="Vertical" Grid.Column="0"/>
+                <TextBox Name="tbImages" Margin="10,0,0,0" Padding="4" FontSize="16" AcceptsReturn="True" TextWrapping="Wrap" Grid.Column="1" TextChanged="tbImages_TextChanged"/>
+            </Grid>
             
             <TextBlock Margin="10" FontSize="20" Text="Ссылки:" FontWeight="DemiBold"/>
             <TextBox Name="tbLinks" Margin="10" Padding="4" FontSize="16" AcceptsReturn="True" TextWrapping="Wrap"/>
