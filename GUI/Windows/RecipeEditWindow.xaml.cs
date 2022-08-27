@@ -12,6 +12,7 @@ namespace Ratatouille.GUI.Windows
     public partial class RecipeEditWindow : Window
     {
         private RecipeViewModel model;
+        private Dictionary<string, string> imgLinks;
 
         private static Random rnd = new Random();
 
@@ -23,11 +24,17 @@ namespace Ratatouille.GUI.Windows
 
             DataContext = model;
 
+            imgLinks = new Dictionary<string, string>();
+
             foreach (string img in recipe.Images)
                 tbImages.Text += img + '\n';
 
             foreach (string link in recipe.Links)
-                tbLinks.Text += link + '\n';
+            {
+                string guid = Guid.NewGuid().ToString();
+                imgLinks.Add(guid, link);
+                tbLinks.Text += guid + '\n';
+            }
         }
 
         private void btnSelectThumb_Click(object sender, RoutedEventArgs e)
@@ -53,7 +60,12 @@ namespace Ratatouille.GUI.Windows
                 imgs.Add(img);
 
             foreach (string link in tbLinks.Text.Split('\n').Where(req => req != ""))
-                links.Add(link);
+            {
+                if (imgLinks.ContainsKey(link))
+                    links.Add(imgLinks[link]);
+                else
+                    links.Add(link);
+            }
 
             model.Images = imgs;
             model.Links = links;
