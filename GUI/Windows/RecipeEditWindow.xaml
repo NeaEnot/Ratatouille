@@ -32,7 +32,13 @@
             <TextBox Margin="10" Padding="4" FontSize="16" AcceptsReturn="True" TextWrapping="Wrap" Text="{Binding Path=Tags}"/>
             <TextBlock Margin="10" FontSize="20" Text="Ориентировочное время:" FontWeight="DemiBold"/>
             <TextBox Margin="10" Padding="4" FontSize="16" AcceptsReturn="True" TextWrapping="Wrap" Text="{Binding Path=ApproxTime}"/>
-            <TextBlock Margin="10" FontSize="20" Text="Ингридиенты:" FontWeight="DemiBold"/>
+            <TextBlock Margin="10" FontSize="20" Text="Ингридиенты:" FontWeight="DemiBold">
+                <TextBlock.ContextMenu>
+                    <ContextMenu DataContext="{Binding RelativeSource={RelativeSource Self}, Path=PlacementTarget}">
+                        <MenuItem Name="AddFromAvailable" Header="Вставить изображение из имеющихся"/>
+                    </ContextMenu>
+                </TextBlock.ContextMenu>
+            </TextBlock>
             <TextBox Margin="10" Padding="4" FontSize="16" AcceptsReturn="True" TextWrapping="Wrap" Text="{Binding Path=Ingredients}"/>
             <TextBlock Margin="10" FontSize="20" Text="Инструменты:" FontWeight="DemiBold"/>
             <TextBox Margin="10" Padding="4" FontSize="16" AcceptsReturn="True" TextWrapping="Wrap" Text="{Binding Path=Tools}"/>

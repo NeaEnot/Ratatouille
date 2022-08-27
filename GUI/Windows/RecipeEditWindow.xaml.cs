@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
@@ -86,10 +87,10 @@ namespace Ratatouille.GUI.Windows
                     spNumbers.Children.Remove(label);
                 }
 
-                int count = -1;
+                int number = -1;
                 foreach (string link in tbImages.Text.Split('\n'))
                 {
-                    count++;
+                    number++;
 
                     if (string.IsNullOrWhiteSpace(link))
                         continue;
@@ -98,7 +99,7 @@ namespace Ratatouille.GUI.Windows
 
                     Label label = new Label
                     {
-                        Content = count + ":",
+                        Content = number + ":",
                         HorizontalAlignment = HorizontalAlignment.Right,
                         VerticalAlignment = VerticalAlignment.Bottom,
                         Padding = new Thickness(0, 0.0025, 4, 0),
@@ -121,9 +122,18 @@ namespace Ratatouille.GUI.Windows
                     sp.Children.Add(label);
                     sp.Children.Add(image);
                     wpImages.Children.Add(sp);
+
+                    AddFromAvailable.Items.Add(new MenuItem { Header = $"{number}: {link}", Command = null, CommandParameter = number });
                 }
             }));
         }
+
+        //public ICommand MenuItemDelete =>
+        //    new Command<int>((purposeModel) =>
+        //    {
+
+        //    });
+
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
