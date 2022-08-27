@@ -7,6 +7,8 @@ using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 
 namespace Ratatouille.GUI.Windows
@@ -62,12 +64,13 @@ namespace Ratatouille.GUI.Windows
                     n++;
 
                 numbersColumn.Width = new GridLength(n * 15);
+                wpImages.Children.Clear();
 
                 while (labels.Count < tbImages.Text.Split('\n').Length)
                 {
                     Label label = new Label
                     {
-                        Content = labels.Count + 1,
+                        Content = labels.Count,
                         HorizontalAlignment = HorizontalAlignment.Right,
                         Padding = new Thickness(0, 0.0025, 4, 0),
                         FontSize = 16
@@ -81,6 +84,43 @@ namespace Ratatouille.GUI.Windows
                 {
                     Label label = labels.Pop();
                     spNumbers.Children.Remove(label);
+                }
+
+                int count = -1;
+                foreach (string link in tbImages.Text.Split('\n'))
+                {
+                    count++;
+
+                    if (string.IsNullOrWhiteSpace(link))
+                        continue;
+
+                    StackPanel sp = new StackPanel { Orientation = Orientation.Horizontal };
+
+                    Label label = new Label
+                    {
+                        Content = count + ":",
+                        HorizontalAlignment = HorizontalAlignment.Right,
+                        VerticalAlignment = VerticalAlignment.Bottom,
+                        Padding = new Thickness(0, 0.0025, 4, 0),
+                        FontSize = 16
+                    };
+
+                    BitmapImage bmp = new BitmapImage();
+                    bmp.BeginInit();
+                    bmp.UriSource = new Uri(imgLinks.ContainsKey(link) ? imgLinks[link] : link);
+                    bmp.EndInit();
+
+                    Image image = new Image
+                    {
+                        Source = bmp,
+                        Width = 150,
+                        Height = 150,
+                        Stretch = Stretch.Uniform
+                    };
+
+                    sp.Children.Add(label);
+                    sp.Children.Add(image);
+                    wpImages.Children.Add(sp);
                 }
             }));
         }
