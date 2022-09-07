@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="Ratatouille.GUI.Controls.ContextedTextBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Ratatouille.GUI.Controls"
+             mc:Ignorable="d">
+    <Grid>
+        <TextBox Name="tb" Margin="10" Padding="4" FontSize="16" AcceptsReturn="True" TextWrapping="Wrap">
+            <TextBox.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Name="miInsertFromCurrent" Header="Вставить изображение из имеющихся"/>
+                </ContextMenu>
+            </TextBox.ContextMenu>
+        </TextBox>
+    </Grid>
+</UserControl>
