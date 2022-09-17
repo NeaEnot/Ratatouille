@@ -7,7 +7,6 @@ using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
@@ -20,6 +19,8 @@ namespace Ratatouille.GUI.Windows
         
         private Dictionary<string, string> imgLinks;
         private Stack<Label> labels;
+
+        private event Action<List<string>> imagesListUpdate;
 
         private static Random rnd = new Random();
 
@@ -43,6 +44,10 @@ namespace Ratatouille.GUI.Windows
                 imgLinks.Add(guid, link);
                 tbLinks.Text += guid + '\n';
             }
+
+            imagesListUpdate += ctbIngridients.UpdateLinks;
+            imagesListUpdate += ctbTools.UpdateLinks;
+            imagesListUpdate += ctbInstruction.UpdateLinks;
         }
 
         private void btnSelectThumb_Click(object sender, RoutedEventArgs e)
@@ -56,7 +61,7 @@ namespace Ratatouille.GUI.Windows
 
         private void tbImages_TextChanged(object sender, TextChangedEventArgs e)
         {
-            string[] imgs = tbImages.Text.Split('\n');
+            string[] imgs = tbImages.Text.Split("\r\n");
 
             Dispatcher.BeginInvoke(DispatcherPriority.Input, new ThreadStart(() =>
             {
@@ -107,9 +112,14 @@ namespace Ratatouille.GUI.Windows
                     };
 
                     BitmapImage bmp = new BitmapImage();
-                    bmp.BeginInit();
-                    bmp.UriSource = new Uri(imgLinks.ContainsKey(link) ? imgLinks[link] : link);
-                    bmp.EndInit();
+                    try
+                    {
+                        bmp.BeginInit();
+                        bmp.UriSource = new Uri(imgLinks.ContainsKey(link) ? imgLinks[link] : link);
+                        bmp.EndInit();
+                    }
+                    catch (Exception ex)
+                    { }
 
                     Image image = new Image
                     {
@@ -122,18 +132,11 @@ namespace Ratatouille.GUI.Windows
                     sp.Children.Add(label);
                     sp.Children.Add(image);
                     wpImages.Children.Add(sp);
-
-                    AddFromAvailable.Items.Add(new MenuItem { Header = $"{number}: {link}", Command = null, CommandParameter = number });
                 }
             }));
+
+            imagesListUpdate.Invoke(imgs.ToList());
         }
-
-        //public ICommand MenuItemDelete =>
-        //    new Command<int>((purposeModel) =>
-        //    {
-
-        //    });
-
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {

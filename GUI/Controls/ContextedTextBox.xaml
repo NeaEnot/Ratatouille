@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Ratatouille.GUI.Controls"
              mc:Ignorable="d">
     <Grid>
-        <TextBox Name="tb" Margin="10" Padding="4" FontSize="16" AcceptsReturn="True" TextWrapping="Wrap">
+        <TextBox Name="tb" FontSize="16" Padding="4" AcceptsReturn="True" TextWrapping="Wrap">
             <TextBox.ContextMenu>
                 <ContextMenu>
                     <MenuItem Name="miInsertFromCurrent" Header="Вставить изображение из имеющихся"/>

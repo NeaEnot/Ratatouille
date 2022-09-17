@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:controls="clr-namespace:Ratatouille.GUI.Controls"
         mc:Ignorable="d"
         WindowState="Maximized"
         Title="{Binding Path=Name}" Height="965" Width="800">
@@ -27,23 +28,17 @@
                 <Button Name="btnSelectThumb" Grid.Column="1" Grid.Row="0" Content="Выбрать файл" FontSize="16" Margin="10" Padding="10 0" Click="btnSelectThumb_Click"/>
                 <Image Name="imgThumb" HorizontalAlignment="Left" Grid.Column="0" Grid.Row="1" MaxHeight="200" MaxWidth="200" Stretch="Uniform" Source="{Binding Path=Thumbnail}"/>
             </Grid>
-            
+
             <TextBlock Margin="10" FontSize="20" Text="Тэги:" FontWeight="DemiBold"/>
             <TextBox Margin="10" Padding="4" FontSize="16" AcceptsReturn="True" TextWrapping="Wrap" Text="{Binding Path=Tags}"/>
             <TextBlock Margin="10" FontSize="20" Text="Ориентировочное время:" FontWeight="DemiBold"/>
             <TextBox Margin="10" Padding="4" FontSize="16" AcceptsReturn="True" TextWrapping="Wrap" Text="{Binding Path=ApproxTime}"/>
-            <TextBlock Margin="10" FontSize="20" Text="Ингридиенты:" FontWeight="DemiBold">
-                <TextBlock.ContextMenu>
-                    <ContextMenu DataContext="{Binding RelativeSource={RelativeSource Self}, Path=PlacementTarget}">
-                        <MenuItem Name="AddFromAvailable" Header="Вставить изображение из имеющихся"/>
-                    </ContextMenu>
-                </TextBlock.ContextMenu>
-            </TextBlock>
-            <TextBox Margin="10" Padding="4" FontSize="16" AcceptsReturn="True" TextWrapping="Wrap" Text="{Binding Path=Ingredients}"/>
+            <TextBlock Margin="10" FontSize="20" Text="Ингридиенты:" FontWeight="DemiBold"/>
+            <controls:ContextedTextBox x:Name="ctbIngridients" Margin="10" Text="{Binding Path=Ingredients}"/>
             <TextBlock Margin="10" FontSize="20" Text="Инструменты:" FontWeight="DemiBold"/>
-            <TextBox Margin="10" Padding="4" FontSize="16" AcceptsReturn="True" TextWrapping="Wrap" Text="{Binding Path=Tools}"/>
+            <controls:ContextedTextBox x:Name="ctbTools" Margin="10" Text="{Binding Path=Tools}"/>
             <TextBlock Margin="10" FontSize="20" Text="Инструкция:" FontWeight="DemiBold"/>
-            <TextBox Margin="10" Padding="4" FontSize="16" AcceptsReturn="True" TextWrapping="Wrap" Text="{Binding Path=Instruction}"/>
+            <controls:ContextedTextBox x:Name="ctbInstruction" Margin="10" Text="{Binding Path=Instruction}"/>
             <TextBlock Margin="10" FontSize="20" Text="Примечания:" FontWeight="DemiBold"/>
             <TextBox Margin="10" Padding="4" FontSize="16" AcceptsReturn="True" TextWrapping="Wrap" Text="{Binding Path=Notes}"/>
 
