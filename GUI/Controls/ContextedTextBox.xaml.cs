@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ratatouille.GUI.Windows;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -51,6 +52,16 @@ namespace Ratatouille.GUI.Controls
                 };
 
                 miInsertFromCurrent.Items.Add(item);
+            }
+        }
+
+        private void miInsertFromInternet_Click(object sender, RoutedEventArgs e)
+        {
+            EnterWindow window = new EnterWindow();
+            if (window.ShowDialog() == true)
+            {
+                // Добавить изображение к списку изображений
+                // Вставить тег с учётом номера изображения
             }
         }
 
