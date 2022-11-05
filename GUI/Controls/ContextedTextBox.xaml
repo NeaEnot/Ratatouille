@@ -11,6 +11,7 @@
                 <ContextMenu>
                     <MenuItem Name="miInsertFromCurrent" Header="Вставить изображение из имеющихся"/>
                     <MenuItem Name="miInsertFromInternet" Header="Вставить изображение из Интернета" Click="miInsertFromInternet_Click"/>
+                    <MenuItem Name="miInsertFromLocal" Header="Вставить изображение с компьютера" Click="miInsertFromLocal_Click"/>
                 </ContextMenu>
             </TextBox.ContextMenu>
         </TextBox>

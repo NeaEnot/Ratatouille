@@ -1,4 +1,5 @@
-﻿using Ratatouille.GUI.Windows;
+﻿using Microsoft.Win32;
+using Ratatouille.GUI.Windows;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -59,10 +60,22 @@ namespace Ratatouille.GUI.Controls
         {
             EnterWindow window = new EnterWindow();
             if (window.ShowDialog() == true)
-            {
-                // Добавить изображение к списку изображений
-                // Вставить тег с учётом номера изображения
-            }
+                InsertNewImage(window.Text);
+        }
+
+        private void miInsertFromLocal_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Filter = "Изображение (*.jpg;*.jpeg) | *.jpg;*.jpeg";
+
+            if (dlg.ShowDialog() == true)
+                InsertNewImage(dlg.FileName);
+        }
+
+        private void InsertNewImage(string img)
+        {
+            // Добавить изображение к списку изображений
+            // Вставить тег с учётом номера изображения
         }
 
         private class Command : ICommand
