@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using Ratatouille.Core;
-using Ratatouille.GUI.ViewModels;
+using Ratatouille.GUI.Models;
+using Ratatouille.GUI.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,13 +17,10 @@ namespace Ratatouille.GUI.Windows
     public partial class RecipeEditWindow : Window
     {
         private RecipeViewModel model;
-        
+        private EditWindowMediator mediator;
+
         private Dictionary<string, string> imgLinks;
         private Stack<Label> labels;
-
-        private event Action<List<string>> imagesListUpdate;
-
-        private static Random rnd = new Random();
 
         public RecipeEditWindow(Recipe recipe)
         {
@@ -45,9 +43,11 @@ namespace Ratatouille.GUI.Windows
                 tbLinks.Text += guid + '\n';
             }
 
-            imagesListUpdate += ctbIngridients.UpdateLinks;
-            imagesListUpdate += ctbTools.UpdateLinks;
-            imagesListUpdate += ctbInstruction.UpdateLinks;
+            mediator = new EditWindowMediator(this);
+
+            mediator.RegisterContextedTextBox(ctbIngridients);
+            mediator.RegisterContextedTextBox(ctbTools);
+            mediator.RegisterContextedTextBox(ctbInstruction);
         }
 
         private void btnSelectThumb_Click(object sender, RoutedEventArgs e)
@@ -135,7 +135,7 @@ namespace Ratatouille.GUI.Windows
                 }
             }));
 
-            imagesListUpdate.Invoke(imgs.ToList());
+            mediator.UpdateLinxsInContexts(imgs.ToList());
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)

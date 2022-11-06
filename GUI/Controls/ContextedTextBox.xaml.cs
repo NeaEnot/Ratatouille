@@ -18,8 +18,6 @@ namespace Ratatouille.GUI.Controls
 
         public static readonly DependencyProperty TextProperty;
 
-        public Action<List<string>> UpdateLinks;
-
         static ContextedTextBox()
         {
             TextProperty = DependencyProperty.Register("Text", typeof(string), typeof(ContextedTextBox));
@@ -28,10 +26,9 @@ namespace Ratatouille.GUI.Controls
         public ContextedTextBox()
         {
             InitializeComponent();
-            UpdateLinks = UpdateCurrentLinks;
         }
 
-        private void UpdateCurrentLinks(List<string> links)
+        public void UpdateCurrentLinks(List<string> links)
         {
             miInsertFromCurrent.Items.Clear();
 

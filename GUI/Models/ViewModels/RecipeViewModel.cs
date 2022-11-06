@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace Ratatouille.GUI.ViewModels
+namespace Ratatouille.GUI.Models.ViewModels
 {
     internal class RecipeViewModel : INotifyPropertyChanged
     {
